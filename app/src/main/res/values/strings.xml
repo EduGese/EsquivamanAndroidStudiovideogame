@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ProjectLujainMariamEduardo</string>
+    <string name="esquivaMan">EsquivaMan</string>
+    <string name="juego">JUGAR</string>
+    <string name="salir">SALIR</string>
+    <string name="jugardenuevo">JUGAR DE NUEVO</string>
+</resources>
