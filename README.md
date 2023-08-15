@@ -25,3 +25,10 @@
   
   ##### 5/ Una vez cargado el proyecto, espera a que Android Studio complete la sincronización del proyecto con las dependencias.
 
+## Ejecución del Proyecto
+Después de haber configurado el proyecto, sigue estos pasos para ejecutar la aplicación en un emulador o dispositivo:
+
+##### 1/ Abre el archivo build.gradle (Module: app) en la estructura del proyecto.
+##### 2/ Asegúrate de que las configuraciones del emulador o dispositivo estén correctamente definidas.
+##### 3/ Haz clic en el botón "Run" en la parte superior de Android Studio o presiona Shift + F10.
+##### La aplicación debería ejecutarse en tu emulador o dispositivo.
