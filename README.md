@@ -8,7 +8,8 @@
   
   ##### 2/ Navega hasta el directorio donde deseas guardar el proyecto usando el comando cd ruta/del/directorio.
   
-  ##### 3/ Ejecuta el siguiente comando para clonar el repositorio en tu máquina:  git clone https://github.com/tu-usuario/tu-repositorio.git
+  ##### 3/ Ejecuta el siguiente comando para clonar el repositorio en tu máquina: 
+  ```git clone https://github.com/tu-usuario/tu-repositorio.git```
   
 
 ## Configuración del Proyecto en Android Studio
