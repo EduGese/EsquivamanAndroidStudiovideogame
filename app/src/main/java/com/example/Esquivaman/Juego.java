@@ -21,7 +21,7 @@ public class Juego extends AppCompatActivity {
         vj.setPadre(this);
     }
 
-    //Para parar la musica
+   
     @Override
     public void onPause(){
         super.onPause();
