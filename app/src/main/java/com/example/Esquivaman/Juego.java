@@ -12,7 +12,7 @@ public class Juego extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Para poner música de fondo  a la hora de jugar
+       
         cancion= MediaPlayer.create(Juego.this,R.raw.musica);
         cancion.start();
         super.onCreate(savedInstanceState);
