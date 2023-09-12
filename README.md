@@ -1,5 +1,4 @@
 # ![esquivaman](https://github.com/EduGese/EsquivamanAndroidStudiovideogame/assets/122921699/8fbbb9c1-e9bf-4c6e-af28-37bcd9a9272f) EsquivamanAndroidStudiovideogame
-
 ![portadaEsquivaman](https://github.com/EduGese/EsquivamanAndroidStudiovideogame/assets/122921699/f0743c2d-5959-46c0-a561-f7c598e91da0)
 
 
