@@ -17,21 +17,16 @@ import java.util.List;
 public class VistaJuego extends View {
 
     private Activity padre;
-
     private long primerAhora;
-
     private List<Graficos>lavadoras;
     private int numLavadoras=4;
     private int puntuacion;
+    private Graficos esquivaman;
 
-    //     ////ESQUIVAMAN///     ///
-
-    private Graficos esquivaman;//Gráfico de la esquivaman
-
-   //Movimiento de esquivaman en el eje Y con el TouchEvent
+   
     float movedY=0;
 
-    /////////   ////////THREAD Y TIEMPO////////////   ////////////
+
 
     // Thread encargado de procesar el juego
     private ThreadJuego thread = new ThreadJuego();
@@ -42,34 +37,34 @@ public class VistaJuego extends View {
 
 
 
-    /*1*/public void setPadre(Activity padre) {
+    /public void setPadre(Activity padre) {
         this.padre = padre;
     }
 
-    /*2*/public VistaJuego(Context context, AttributeSet attrs) {
+    public VistaJuego(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         Drawable drawableLavadora, drawableEsquivaman;
         drawableLavadora= AppCompatResources.getDrawable(context, R.drawable.lavadora1);
         drawableEsquivaman= AppCompatResources.getDrawable(context,R.drawable.esquivaman);
 
-        //Inicializamos la variable de esquivaman y la de lavadoras
+        
         esquivaman= new Graficos(this,drawableEsquivaman);
         lavadoras = new ArrayList<Graficos>();
-        //Igualamos la puntuación a cero
+       
         puntuacion=0;
         for (int i = 0; i < numLavadoras; i++) {
             Graficos lavadora =new Graficos(this, drawableLavadora);
             lavadora.setIncY(Math.random()*10-5);
             lavadora.setIncX(Math.random()*5-10);
-            lavadora.setAngulo((int)(Math.random()*178+91));//Angulo en el que se desplaza
-            lavadora.setRotacion((int)(Math.random()*10-4)); //Rotacion de las lavadoras
+            lavadora.setAngulo((int)(Math.random()*178+91));
+            lavadora.setRotacion((int)(Math.random()*10-4)); 
             lavadoras.add(lavadora);}
     }
 
-    /*3*/@Override protected void onSizeChanged(int ancho,int alto,int ancho_anter,int alto_anter) {
+    @Override protected void onSizeChanged(int ancho,int alto,int ancho_anter,int alto_anter) {
         super.onSizeChanged(ancho,alto,ancho_anter,alto_anter);
-        //Una vez que conocemos nuestro ancho y alto
+       
         esquivaman.setCenX(200);
         esquivaman.setCenY(alto/2);
 
@@ -80,14 +75,11 @@ public class VistaJuego extends View {
             if(separarLavadoras(i,lavadoras)==-1){
                 i--;
             }
-
         }
-
-        //ultimoPrceso= System.currentTimeMillis();
         thread.start();
     }
 
-    /*4*/@Override synchronized protected void onDraw (Canvas canvas){//Dibuja los objetos
+    @Override synchronized protected void onDraw (Canvas canvas){//Dibuja los objetos
         super.onDraw(canvas);
         for(Graficos lavadora: lavadoras){
             lavadora.dibujarGraficos(canvas);
@@ -95,24 +87,22 @@ public class VistaJuego extends View {
         esquivaman.dibujarGraficos(canvas);
     }
 
-    /*5*/@Override public boolean onTouchEvent (MotionEvent event) {//Metodo que hace que el usuario controle a esquivamen con los dedos
+    @Override public boolean onTouchEvent (MotionEvent event) {//Metodo que hace que el usuario controle a esquivamen con los dedos
         super.onTouchEvent(event);
 
-        float yDown = event.getY();//Coge el eje y cuando se pulsa
+        float yDown = event.getY();
 
         if(event.getAction()==MotionEvent.ACTION_MOVE){
 
-            //Calculamos la distancia que hay a la hora de mover a esquivaman
+            
             float distancey = yDown-movedY;
-            //Coloca a esquivaman en la posicion que se ha dejado de mover
             esquivaman.setCenY(esquivaman.getCenY()+(int)distancey);
         }
-
         movedY=yDown;
         return true;
     }
 
-    /*6*/ synchronized protected void actualizaFisica(){
+     synchronized protected void actualizaFisica(){
         //Para calcular los segundos que consigue el usuario (puntuación)
         if(ultimoPrceso==0){
             primerAhora = System.currentTimeMillis();
@@ -125,30 +115,29 @@ public class VistaJuego extends View {
             return;
         }
 
-        //Para una ejecución en tiempo real
-        //calculamos el factor de movimiento
+        
+        
         double factorMov= (ahora-ultimoPrceso)/ periodoActualizacion;
+        ultimoPrceso=ahora; 
 
-        ultimoPrceso=ahora; //Para la proxima vez
-
-        /*Actualizamos posición*/
+        
         esquivaman.incrementaPos(factorMov);
         for (Graficos lavadora :lavadoras){
             lavadora.incrementaPos(factorMov);
             ultimoPrceso=System.currentTimeMillis();
             puntuacion = (int)(ultimoPrceso-primerAhora)/1000;
-            lavadora.setAngulo((int)(Math.random()*360));//Angulo en el que se desplaza
+            lavadora.setAngulo((int)(Math.random()*360));
 
             if (puntuacion>10){
                 lavadora.incrementaPos(factorMov*1.2);
-                lavadora.setAngulo((int)(Math.random()*360));//Angulo en el que se desplaza
+                lavadora.setAngulo((int)(Math.random()*360));
             }
             if (puntuacion>20){
                 lavadora.incrementaPos(factorMov*1.8);
-                lavadora.setAngulo((int)(Math.random()*360));//Angulo en el que se desplaza
+                lavadora.setAngulo((int)(Math.random()*360));
             }
         }
-         //Colision
+        
         for ( int i=0;i<lavadoras.size();i++){
             if(esquivaman.verificaColision(lavadoras.get(i))){//Cuando colisiona
                    Intent data = new Intent();
@@ -160,8 +149,7 @@ public class VistaJuego extends View {
         }
     }
 
-    /*7*/public int separarLavadoras(int indice, List<Graficos> lista){
-        //No estamos seguro de si funciona
+    public int separarLavadoras(int indice, List<Graficos> lista){
         for (int i = 0; i < lista.size(); i++) {
             if(indice==i){
             }else{
@@ -174,7 +162,7 @@ public class VistaJuego extends View {
         return 1;
     }
 
-    /*8*/ class ThreadJuego extends Thread{//Se crea un segundo hilo de ejecucion
+     class ThreadJuego extends Thread{//Se crea un segundo hilo de ejecucion
         @Override
         public  void run(){
             while (true){
